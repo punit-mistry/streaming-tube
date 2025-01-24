@@ -1,45 +1,34 @@
 import { NextResponse } from "next/server"
 
-export const runtime = "edge"
 
-let clients: ReadableStreamDefaultController[] = []
+import Pusher from 'pusher'
 
-function sendCommentToAll(comment: string) {
-  clients.forEach((client) => {
-    client.enqueue(`data: ${JSON.stringify({ comment })}\n\n`)
+const pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID!,
+  key: process.env.NEXT_PUBLIC_PUSHER_APP_KEY!,
+  secret: process.env.PUSHER_SECRET!,
+  cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
+  useTLS: true,
+})
+async function sendCommentToAll(comment: string) {
+await pusher.trigger('chat-channel', 'new-message', {
+    comment,
   })
 }
 
-export async function GET() {
-  const stream = new ReadableStream({
-    start(controller) {
-      clients.push(controller)
-    },
-    cancel() {
-      clients = clients.filter((client) => client !== controller)
-    },
-  })
 
-  return new NextResponse(stream, {
-    headers: {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
-    },
-  })
-}
 
 export async function POST(request: Request) {
   const { text } = await request.json()
 
   const comment = {
     id: Date.now().toString(),
-    text,
+    message: text,
     username: "Anonymous", // You can implement user authentication to get real usernames
   }
 
   sendCommentToAll(JSON.stringify(comment))
 
-  return NextResponse.json({ message: "Comment sent" })
+  return NextResponse.json({ status:'success',message: "Comment sent" })
 }
 
