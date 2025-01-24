@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server"
-
+interface Comment {
+  id: string
+  message: string
+  username: string
+}
 
 import Pusher from 'pusher'
 
@@ -10,7 +14,7 @@ const pusher = new Pusher({
   cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
   useTLS: true,
 })
-async function sendCommentToAll(comment: string) {
+async function sendCommentToAll(comment: Comment) {
 await pusher.trigger('chat-channel', 'new-message', {
     comment,
   })
@@ -27,7 +31,7 @@ export async function POST(request: Request) {
     username: "Anonymous", // You can implement user authentication to get real usernames
   }
 
-  sendCommentToAll(JSON.stringify(comment))
+  sendCommentToAll(comment) 
 
   return NextResponse.json({ status:'success',message: "Comment sent" })
 }

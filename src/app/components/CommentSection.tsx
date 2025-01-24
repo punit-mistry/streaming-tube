@@ -4,21 +4,19 @@ import { useState, useEffect } from "react"
 import pusherClient from '@/lib/pusher'
 type Comment = {
   id: string
-  text: string
+  message: string
   username: string
 }
 
 export default function CommentSection() {
-  const [comments, setComments] = useState<string[]>([])
+  const [comments, setComments] = useState<Comment[]>([])
   const [newComment, setNewComment] = useState("")
-
+  const FetchComments = async (incomingComments:{comment:Comment}) => {
+setComments((prevComments) => [...prevComments, incomingComments.comment])
+  }
   useEffect(() => {
     const channel = pusherClient.subscribe('chat-channel')
-    channel.bind('new-message', (data:Comment) => {
-      console.log(data,"new Data ")
-      // setComments((prev) => [...prev, data])
-    })
-
+    channel.bind('new-message',FetchComments )
     return () => {
       pusherClient.unsubscribe('chat-channel')
     }
@@ -45,13 +43,12 @@ export default function CommentSection() {
     <div className="bg-gray-800 rounded-lg overflow-hidden">
       <h2 className="text-xl font-semibold mb-4 p-4 bg-gray-700 text-white">Live Chat</h2>
       <div className="h-96 overflow-y-auto p-4 space-y-4">
-        {/* {console.log(comments)} */}
-        {/* {comments.map((comment) => (
+        {comments.map((comment) => (
           <div key={comment.id} className="bg-gray-700 p-2 rounded">
             <span className="font-semibold text-purple-400">{comment.username}: </span>
-            <span className="text-white">{comment.text}</span>
+            <span className="text-white">{comment.message}</span>
           </div>
-        ))} */}
+        ))}
       </div>
       <form onSubmit={handleSubmit} className="p-4 bg-gray-700">
         <input
