@@ -1,14 +1,18 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Hls from "hls.js"
 import { User, Heart } from "lucide-react"
 
-export default function VideoPlayer() {
+interface VideoPlayerProps {
+  initialPlaybackId?: string
+}
+
+export default function VideoPlayer({ initialPlaybackId }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [playbackId, setPlaybackId] = useState(initialPlaybackId || process.env.NEXT_PUBLIC_MUX_PLAYBACK_ID)
 
   useEffect(() => {
-    const playbackId = process.env.NEXT_PUBLIC_MUX_PLAYBACK_ID
     if (!playbackId) {
       console.error("Mux Playback ID is not set")
       return
@@ -23,7 +27,7 @@ export default function VideoPlayer() {
     } else if (videoRef.current?.canPlayType("application/vnd.apple.mpegurl")) {
       videoRef.current.src = videoSrc
     }
-  }, [])
+  }, [playbackId])
 
   return (
     <div className="bg-gray-900 rounded-lg overflow-hidden">
@@ -31,15 +35,15 @@ export default function VideoPlayer() {
         <video ref={videoRef} controls className="w-full h-full" />
       </div>
       <div className="p-4">
-        <h2 className="text-xl font-bold text-white mb-2">Live Stream Title</h2>
+        <h2 className="text-xl font-bold text-white mb-2">Live Stream</h2>
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <User className="text-purple-500 mr-2" size={20} />
-            <span className="text-white">Streamer Name</span>
+            <span className="text-white">Streamer</span>
           </div>
           <div className="flex items-center">
             <Heart className="text-red-500 mr-2" size={20} />
-            <span className="text-white">1.2K</span>
+            <span className="text-white">Live</span>
           </div>
         </div>
       </div>
