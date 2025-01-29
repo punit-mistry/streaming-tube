@@ -1,38 +1,45 @@
-import { Users, Heart, Star } from "lucide-react"
+import { Home, Compass, PlaySquare, Clock, ThumbsUp, Flame, Music2, Gamepad2, Newspaper, Trophy } from "lucide-react"
 
-const channels = [
-  { name: "Channel 1", viewers: 1200 },
-  { name: "Channel 2", viewers: 800 },
-  { name: "Channel 3", viewers: 2000 },
+const menuItems = [
+  { icon: Home, label: "Home" },
+  { icon: Compass, label: "Explore" },
+  { icon: PlaySquare, label: "Subscriptions" },
+  { icon: Clock, label: "History" },
+  { icon: ThumbsUp, label: "Liked videos" },
 ]
 
-export default function SideMenu() {
+const exploreItems = [
+  { icon: Flame, label: "Trending" },
+  { icon: Music2, label: "Music" },
+  { icon: Gamepad2, label: "Gaming" },
+  { icon: Newspaper, label: "News" },
+  { icon: Trophy, label: "Sports" },
+]
+
+interface SideMenuProps {
+  isOpen: boolean
+}
+
+export default function SideMenu({ isOpen }: SideMenuProps) {
   return (
-    <aside className="w-64 bg-gray-800 text-white overflow-y-auto">
-      <nav className="p-4">
-        <h2 className="text-lg font-semibold mb-4">Followed Channels</h2>
-        <ul className="space-y-2">
-          {channels.map((channel) => (
-            <li key={channel.name} className="flex items-center justify-between hover:bg-gray-700 p-2 rounded">
-              <div className="flex items-center">
-                <Users size={20} className="mr-2" />
-                <span>{channel.name}</span>
-              </div>
-              <span className="text-sm text-gray-400">{channel.viewers}</span>
-            </li>
-          ))}
-        </ul>
-        <h2 className="text-lg font-semibold mt-6 mb-4">Recommended Channels</h2>
-        <ul className="space-y-2">
-          <li className="flex items-center hover:bg-gray-700 p-2 rounded">
-            <Heart size={20} className="mr-2" />
-            <span>Recommended Channel 1</span>
-          </li>
-          <li className="flex items-center hover:bg-gray-700 p-2 rounded">
-            <Star size={20} className="mr-2" />
-            <span>Recommended Channel 2</span>
-          </li>
-        </ul>
+    <aside
+      className={`bg-[#0f0f0f] text-white overflow-y-auto border-r border-[#272727] flex-shrink-0 transition-all duration-300 ${isOpen ? "w-64" : "w-0"}`}
+    >
+      <nav className={`py-3 ${isOpen ? "opacity-100" : "opacity-0"} transition-opacity duration-300`}>
+        {menuItems.map((item) => (
+          <a key={item.label} href="#" className="flex items-center px-6 py-3 hover:bg-[#272727]">
+            <item.icon size={20} className="mr-4" />
+            <span>{item.label}</span>
+          </a>
+        ))}
+        <hr className="my-2 border-[#272727]" />
+        <h3 className="px-6 py-2 text-sm font-semibold">Explore</h3>
+        {exploreItems.map((item) => (
+          <a key={item.label} href="#" className="flex items-center px-6 py-3 hover:bg-[#272727]">
+            <item.icon size={20} className="mr-4" />
+            <span>{item.label}</span>
+          </a>
+        ))}
       </nav>
     </aside>
   )

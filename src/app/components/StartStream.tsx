@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { Camera, Mic, Video } from "lucide-react"
+import { Camera, Mic } from "lucide-react"
 
 export default function StartStream() {
   const [isStreaming, setIsStreaming] = useState(false)

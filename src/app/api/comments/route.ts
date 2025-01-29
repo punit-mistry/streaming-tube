@@ -23,11 +23,11 @@ await pusher.trigger('chat-channel', 'new-message', {
 
 
 export async function POST(request: Request) {
-  const { text } = await request.json()
+  const { message } = await request.json()
 
   const comment = {
     id: Date.now().toString(),
-    message: text,
+    message,
     username: "Anonymous", // You can implement user authentication to get real usernames
   }
 
