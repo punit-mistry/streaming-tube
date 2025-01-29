@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
           "Content-Type": "video/webm",
         },
         body: buffer,
-        duplex: "half", // Required for streaming requests
+        // duplex: "half", // Required for streaming requests
       }
     );
 

@@ -7,7 +7,7 @@ interface HeaderProps {
 
 export default function Header({ toggleSidebar }: HeaderProps) {
   return (
-    <header className="bg-[#0f0f0f] text-white p-2 flex items-center justify-between border-b border-[#272727]">
+    <header className="bg-[#0f0f0f] text-white p-2 flex items-center justify-between">
       <div className="flex items-center">
         <button className="p-2 hover:bg-[#272727] rounded-full" onClick={toggleSidebar}>
           <Menu size={24} />
@@ -30,12 +30,13 @@ export default function Header({ toggleSidebar }: HeaderProps) {
         </div>
       </div>
       <div className="flex items-center space-x-4">
-        <button className="p-2 hover:bg-[#272727] rounded-full">
-          <Mic size={20} />
-        </button>
-        <button className="p-2 hover:bg-[#272727] rounded-full">
+        <Link
+          href="/start-streaming"
+          className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 flex items-center gap-2"
+        >
           <Video size={20} />
-        </button>
+          Start Streaming
+        </Link>
         <button className="p-2 hover:bg-[#272727] rounded-full">
           <Bell size={20} />
         </button>
