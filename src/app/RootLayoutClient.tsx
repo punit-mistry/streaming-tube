@@ -17,7 +17,7 @@ export default function RootLayoutClient({ children }: { children: React.ReactNo
       <div className="flex flex-1 overflow-hidden">
         <SideMenu isOpen={isSidebarOpen} />
         <main
-          className={`flex-1 overflow-auto bg-[#0f0f0f] transition-all duration-300 ${isSidebarOpen ? "ml-64" : "ml-0"}`}
+          className={`flex-1 overflow-auto bg-[#0f0f0f] transition-all duration-300 `}
         >
           {children}
         </main>
