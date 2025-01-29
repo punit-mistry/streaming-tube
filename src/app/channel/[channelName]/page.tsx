@@ -1,4 +1,4 @@
-import { Video, Users, Bell } from "lucide-react"
+import {  Users, Bell } from "lucide-react"
 
 export default function ChannelPage({ params }: { params: { channelName: string } }) {
   return (

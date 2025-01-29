@@ -19,6 +19,7 @@ export default function StartStreaming() {
     // Here you would typically upload the images and save the channel data
     // For now, we'll just redirect to the channel page
     router.push(`/channel/${formData.channelName}`)
+    console.log(channelLogo, channelBanner)
   }
 
   return (

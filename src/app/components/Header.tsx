@@ -37,6 +37,9 @@ export default function Header({ toggleSidebar }: HeaderProps) {
           <Video size={20} />
           Start Streaming
         </Link>
+          <button className="p-2 hover:bg-[#272727] rounded-full">
+          <Mic size={20} />
+        </button>
         <button className="p-2 hover:bg-[#272727] rounded-full">
           <Bell size={20} />
         </button>
