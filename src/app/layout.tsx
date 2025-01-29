@@ -1,5 +1,6 @@
 import "./globals.css"
 import { Inter } from "next/font/google"
+import RootLayoutClient from "./RootLayoutClient"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -15,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-900 text-white`}>{children}</body>
+      <body className={`${inter.className} bg-[#0f0f0f] text-white`}>
+        <RootLayoutClient>{children}</RootLayoutClient>
+      </body>
     </html>
   )
 }

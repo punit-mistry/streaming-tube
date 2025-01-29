@@ -17,13 +17,12 @@ export default function StartStreaming() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     // Here you would typically upload the images and save the channel data
-    // For now, we'll just redirect to the channel page
     router.push(`/channel/${formData.channelName}`)
-    console.log(channelLogo, channelBanner)
+    console.log(channelBanner, channelLogo)
   }
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-white p-6">
+    <div className="p-6">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Create Your Channel</h1>
         <form onSubmit={handleSubmit} className="space-y-6">

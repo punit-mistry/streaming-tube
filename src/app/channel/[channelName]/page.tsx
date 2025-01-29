@@ -1,8 +1,12 @@
 import {  Users, Bell } from "lucide-react"
 
-export default function ChannelPage({ params }: { params: { channelName: string } }) {
+type Params = Promise<{ channelName: string }>;
+
+export default async function ChannelPage({ params }: { params: Params }) {
+  const { channelName } = await params;
+
   return (
-    <div className="min-h-screen bg-[#0f0f0f] text-white">
+    <div>
       {/* Channel Banner */}
       <div className="w-full h-48 md:h-64 bg-gradient-to-r from-purple-600 to-blue-600">
         {/* You would typically render the uploaded banner image here */}
@@ -15,7 +19,7 @@ export default function ChannelPage({ params }: { params: { channelName: string 
             {/* You would typically render the uploaded logo here */}
           </div>
           <div className="flex-1">
-            <h1 className="text-2xl md:text-3xl font-bold">{params.channelName}</h1>
+            <h1 className="text-2xl md:text-3xl font-bold">{channelName}</h1>
             <div className="flex items-center gap-2 text-gray-400 mt-2">
               <Users size={20} />
               <span>0 subscribers</span>
@@ -53,4 +57,3 @@ export default function ChannelPage({ params }: { params: { channelName: string 
     </div>
   )
 }
-
